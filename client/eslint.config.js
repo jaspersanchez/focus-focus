@@ -13,6 +13,7 @@ export default defineConfig([
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      eslintConfigPrettier,
     ],
     languageOptions: {
       ecmaVersion: 2020,
@@ -26,6 +27,5 @@ export default defineConfig([
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
-    eslintConfigPrettier,
   },
 ]);
