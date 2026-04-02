@@ -7,9 +7,11 @@ export default defineConfig([
     files: ['**/*.{js,mjs,cjs}'],
     plugins: { js },
     extends: ['js/recommended'],
-    env: {
-      jest: true,
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
     },
-    languageOptions: { globals: globals.node },
   },
 ]);
