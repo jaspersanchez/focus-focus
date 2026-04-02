@@ -5,7 +5,7 @@ import { defineConfig } from 'eslint/config';
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs}'],
-    plugins: [js, 'jest'],
+    plugins: { js },
     extends: ['js/recommended'],
     env: {
       jest: true,
