@@ -23,7 +23,7 @@ No auth, no categories in v1.
 
 ### ✅ Slice 1 - Create a task
 
-### ⬜ Slice 2 - List tasks + mark complete
+### ✅ Slice 2 - List tasks + mark complete
 
 ### ⬜ Slice 3 - Edit / delete a task
 
