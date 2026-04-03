@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div>
       <Layout>
-        <TaskForm />
+        <TaskForm setTasks={setTasks} />
         <TaskList tasks={tasks} />
       </Layout>
     </div>

@@ -31,3 +31,21 @@ describe('GET /api/tasks', () => {
     expect(Array.isArray(res.body)).toBe(true);
   });
 });
+
+describe('PATCH /api/tasks/:id/complete', () => {
+  it('should toggle isCompleted', async () => {
+    // create task first
+    const created = await request(app)
+      .post('/api/tasks')
+      .send({ title: 'Test task', description: 'test' });
+
+    const taskId = created.body._id;
+
+    const res = await request(app).patch(`/api/tasks/${taskId}/complete`).send({
+      isCompleted: !created.isCompleted,
+    });
+
+    expect(res.status).toBe(200);
+    expect(res.body.isCompleted).toBe(true);
+  });
+});

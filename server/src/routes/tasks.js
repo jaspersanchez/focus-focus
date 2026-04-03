@@ -9,8 +9,18 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const tasks = await Task.find();
+  const tasks = await Task.find().sort({ createdAt: -1 });
   res.json(tasks);
+});
+
+router.patch('/:id/complete', async (req, res) => {
+  const updated = await Task.findByIdAndUpdate(
+    req.params.id,
+    { $set: { isCompleted: req.body.isCompleted } },
+    { returnDocument: 'after' }
+  );
+
+  res.json(updated);
 });
 
 export default router;

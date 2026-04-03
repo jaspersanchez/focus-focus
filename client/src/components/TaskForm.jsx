@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TaskForm = () => {
+const TaskForm = ({ setTasks }) => {
   const [note, setNote] = useState('');
   const [title, setTitle] = useState('');
   const [showNote, setShowNote] = useState(false);
@@ -23,7 +23,7 @@ const TaskForm = () => {
 
     const task = await addTask(payload);
 
-    console.log(task);
+    setTasks((prev) => [task, ...prev]);
 
     setTitle('');
     setNote('');
