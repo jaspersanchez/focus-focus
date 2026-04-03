@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 const TaskForm = () => {
+  const [note, setNote] = useState('');
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [showNote, setShowNote] = useState(false);
 
   const addTask = async (payload) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
@@ -18,30 +19,51 @@ const TaskForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = { title, description };
+    const payload = { title, description: note };
 
     const task = await addTask(payload);
 
     console.log(task);
 
     setTitle('');
-    setDescription('');
+    setNote('');
+    setShowNote(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center">
-      <input
-        type="text"
-        placeholder="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <button type="submit">submit</button>
+    <form onSubmit={handleSubmit} className="flex items-start gap-2">
+      <div className="flex flex-1 flex-col space-y-2">
+        <input
+          type="text"
+          placeholder="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="border border-gray-400 rounded-lg px-2 py-1"
+        />
+        {showNote && (
+          <textarea
+            placeholder="add note here..."
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="border border-gray-400 rounded-lg px-2 py-1"
+          />
+        )}
+      </div>
+      <div className="flex gap-2">
+        <button
+          className="text-white px-3 py-1 bg-blue-500 hover:bg-blue-600 transition font-medium rounded-lg"
+          type="submit"
+        >
+          Save
+        </button>
+        <button
+          className={`border font-light px-2 rounded-lg border-emerald-400 text text-green-500 hover:text-green-600 ${showNote && 'bg-emerald-400 text-white hover:bg-emerald-500 hover:text-white'}`}
+          type="button"
+          onClick={() => setShowNote(!showNote)}
+        >
+          Note
+        </button>
+      </div>
     </form>
   );
 };

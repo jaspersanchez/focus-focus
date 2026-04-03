@@ -1,4 +1,5 @@
 // import { useEffect, useState } from 'react';
+import Layout from './components/Layout';
 import TaskForm from './components/TaskForm';
 
 const App = () => {
@@ -21,15 +22,9 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        <h1 className="text-2xl">Focus-focus</h1>
-        {/* <p>
-          status: <span className="text-green-500">{status}</span>
-        </p> */}
-      </div>
-      <div>
+      <Layout>
         <TaskForm />
-      </div>
+      </Layout>
     </div>
   );
 };
