@@ -39,6 +39,7 @@ const TaskForm = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="border border-gray-400 rounded-lg px-2 py-1"
+          required
         />
         {showNote && (
           <textarea

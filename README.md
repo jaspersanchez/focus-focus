@@ -35,8 +35,8 @@ No auth, no categories in v1.
 
 ## Live
 
-- Frontend: coming soon
-- API: coming soon
+- Frontend: https://focus-focus-three.vercel.app
+- API: https://focus-focus.onrender.com
 
 ## Environment variables
 
