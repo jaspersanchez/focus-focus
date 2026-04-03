@@ -19,14 +19,35 @@ No auth, no categories in v1.
 2. List tasks + mark complete
 3. Edit / delete a task
 
+## Progress
+
+### ✅ Slice 1 - Create a task
+
+### ⬜ Slice 2 - List tasks + mark complete
+
+### ⬜ Slice 3 - Edit / delete a task
+
 ## Stack
 
 - Client: React + Vite → deployed on Vercel
 - Server: Express/Node → deployed on Render
 - DB: MongoDB
 
+## Live
+
+- Frontend: coming soon
+- API: coming soon
+
 ## Environment variables
 
+**Server:**
+Copy `.env.example` to `.env` and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+**Client:**
 Copy `.env.example` to `.env` and fill in the values:
 
 ```bash
