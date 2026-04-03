@@ -22,3 +22,12 @@ describe('POST /api/tasks', () => {
     expect(res.body.title).toBe('Buy groceries');
   });
 });
+
+describe('GET /api/tasks', () => {
+  it('should return all task', async () => {
+    const res = await request(app).get('/api/tasks');
+
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+});

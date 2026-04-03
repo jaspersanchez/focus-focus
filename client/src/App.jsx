@@ -1,29 +1,34 @@
 // import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Layout from './components/Layout';
 import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
+import { useState } from 'react';
 
 const App = () => {
-  // const [status, setStatus] = useState('connecting to server...');
+  const [tasks, setTasks] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchServer = async () => {
-  //     try {
-  //       const res = await fetch('http://localhost:3000/health');
-  //       const data = await res.json();
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`);
 
-  //       setStatus(data.status);
-  //     } catch {
-  //       setStatus('There is a trouble connecting to the server...');
-  //     }
-  //   };
+        const data = await res.json();
 
-  //   fetchServer();
-  // }, []);
+        setTasks(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   return (
     <div>
       <Layout>
         <TaskForm />
+        <TaskList tasks={tasks} />
       </Layout>
     </div>
   );
