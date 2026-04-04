@@ -1,10 +1,15 @@
+import { FiCheckSquare } from 'react-icons/fi';
+
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen max-w-lg mx-auto flex flex-col">
-      <header className="p-2 border-b">
-        <h1>Focus-focus</h1>
+      <header className="px-4 py-3 border-b border-gray-400 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <FiCheckSquare size={18} className="text-blue-500" />
+          <span className="text-sm font-medium text-gray-800">Focus-focus</span>
+        </div>
       </header>
-      <main className="p-4">{children}</main>
+      <main className="px-4 py-6">{children}</main>
     </div>
   );
 };

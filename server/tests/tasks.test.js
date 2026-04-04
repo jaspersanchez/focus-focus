@@ -49,3 +49,21 @@ describe('PATCH /api/tasks/:id/complete', () => {
     expect(res.body.isCompleted).toBe(true);
   });
 });
+
+describe('PATCH /api/tasks/:id', () => {
+  it('should update title and description', async () => {
+    const created = await request(app)
+      .post('/api/tasks')
+      .send({ title: 'original title', description: 'original description' });
+
+    const taskId = created.body._id;
+
+    const res = await request(app)
+      .patch(`/api/tasks/${taskId}`)
+      .send({ title: 'updated title', description: 'updated description' });
+
+    expect(res.status).toBe(200);
+    expect(res.body.title).toBe('updated title');
+    expect(res.body.description).toBe('updated description');
+  });
+});

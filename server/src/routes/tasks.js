@@ -23,4 +23,17 @@ router.patch('/:id/complete', async (req, res) => {
   res.json(updated);
 });
 
+router.patch('/:id', async (req, res) => {
+  console.log(req.body);
+  const updated = await Task.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: { title: req.body.title, description: req.body.description },
+    },
+    { returnDocument: 'after' }
+  );
+
+  res.json(updated);
+});
+
 export default router;
