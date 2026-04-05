@@ -67,3 +67,17 @@ describe('PATCH /api/tasks/:id', () => {
     expect(res.body.description).toBe('updated description');
   });
 });
+
+describe('DELETE /api/tasks/:id', () => {
+  it('should delete the task', async () => {
+    const created = await request(app)
+      .post('/api/tasks')
+      .send({ title: 'original title', description: 'original description' });
+
+    const taskId = created.body._id;
+
+    const res = await request(app).delete(`/api/tasks/${taskId}`);
+
+    expect(res.status).toBe(204);
+  });
+});
