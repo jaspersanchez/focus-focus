@@ -25,7 +25,7 @@ No auth, no categories in v1.
 
 ### ✅ Slice 2 - List tasks + mark complete
 
-### ⬜ Slice 3 - Edit / delete a task
+### ✅ Slice 3 - Edit / delete a task
 
 ## Stack
 
