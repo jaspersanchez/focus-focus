@@ -1,13 +1,20 @@
 import { useState } from 'react';
 
-const TaskForm = ({ onSubmit, onCancel, task = null }) => {
+const TaskForm = ({ onClose, onSubmit, onDelete, task = null }) => {
   const [title, setTitle] = useState(task?.title || '');
   const [description, setDescription] = useState(task?.description || '');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim()) return;
-    await onSubmit({ title, description });
+
+    if (!task) {
+      await onSubmit({ title, description });
+    } else {
+      await onSubmit(task._id, { title, description });
+    }
+
+    onClose();
     setTitle('');
     setDescription('');
   };
@@ -36,7 +43,7 @@ const TaskForm = ({ onSubmit, onCancel, task = null }) => {
         </button>
         <button
           type="button"
-          onClick={onCancel}
+          onClick={onClose}
           className="text-xs text-gray-400 hover:text-gray-600 transition-colors px-2"
         >
           Cancel
@@ -45,6 +52,7 @@ const TaskForm = ({ onSubmit, onCancel, task = null }) => {
           <button
             type="button"
             className="text-xs text-red-400 border border-red-300 rounded-lg hover:text-red-500 transition-colors px-2 ml-auto"
+            onClick={onDelete}
           >
             Delete
           </button>

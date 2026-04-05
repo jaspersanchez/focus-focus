@@ -1,18 +1,22 @@
 import { useState, useEffect } from 'react';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
+import {
+  completeTask,
+  createTask,
+  deleteTask,
+  editTask,
+  getTasks,
+} from '../api/tasks';
 
 const HomePage = () => {
-  const [showForm, setShowForm] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`);
-
-        const data = await res.json();
-
+        const data = await getTasks();
         setTasks(data);
       } catch (error) {
         console.log(error);
@@ -22,19 +26,31 @@ const HomePage = () => {
     fetchTasks();
   }, []);
 
+  // handlers
   const handleCreate = async (payload) => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const newTask = await res.json();
-      setTasks((prev) => [newTask, ...prev]);
-      setShowForm(false);
-    } catch (error) {
-      console.log(error);
-    }
+    const newTask = await createTask(payload);
+
+    setTasks((prev) => [newTask, ...prev]);
+  };
+
+  const handleEdit = async (id, payload) => {
+    const editedTask = await editTask(id, payload);
+
+    setTasks((prev) =>
+      prev.map((t) => (t._id === editedTask._id ? editedTask : t))
+    );
+  };
+
+  const handleComplete = async (id, isCompleted) => {
+    const data = await completeTask(id, !isCompleted);
+
+    setTasks((prev) => prev.map((t) => (t._id === data._id ? data : t)));
+  };
+
+  const handleDelete = async (id) => {
+    await deleteTask(id);
+
+    setTasks((prev) => prev.filter((t) => t._id !== id));
   };
 
   return (
@@ -51,12 +67,17 @@ const HomePage = () => {
       {showForm && (
         <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6">
           <TaskForm
+            onClose={() => setShowForm(false)}
             onSubmit={handleCreate}
-            onCancel={() => setShowForm(false)}
           />
         </div>
       )}
-      <TaskList tasks={tasks} setTasks={setTasks} />
+      <TaskList
+        tasks={tasks}
+        onEdit={handleEdit}
+        onComplete={handleComplete}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };
